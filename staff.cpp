@@ -22,7 +22,7 @@ bool login(string username, string password, string &clinicPostfix)
         string element;
 
         // string vector to store csv values
-        vector<int> v;
+        vector<string> v;
         stringstream ss(line);
 
         while (ss.good())

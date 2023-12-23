@@ -1,0 +1,75 @@
+name: CI/CD C++ Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install CMake
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake
+
+    - name: Configure and build admin
+      run: |
+        cmake -S . -B build/admin
+        cmake --build build/admin
+
+    - name: Configure and build kiosk
+      run: |
+        cmake -S . -B build/kiosk
+        cmake --build build/kiosk
+
+    - name: Configure and build monitor
+      run: |
+        cmake -S . -B build/monitor
+        cmake --build build/monitor
+
+    - name: Configure and build staff
+      run: |
+        cmake -S . -B build/staff
+        cmake --build build/staff
+
+  code-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Code Quality Tools (e.g., Clang, CPPCheck)
+      run: |
+        sudo apt-get install -y clang cppcheck
+
+    -name: Run Code Quality Analysis for admin
+      run: cppcheck admin.cpp
+
+    -name: Run Code Quality Analysis for kiosk
+      run: cppcheck kiosk.cpp
+
+    -name: Run Code Quality Analysis for monitory
+      run: cppcheck monitor.cpp
+      
+    -name: Run Code Quality Analysis for staff
+      run: cppcheck staff.cpp
+
+  artifact-repository:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: projects-artifacts
+        path: AppDev_Prelims_Working

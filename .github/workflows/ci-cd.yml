@@ -49,16 +49,16 @@ jobs:
       run: |
         sudo apt-get install -y clang cppcheck
 
-    -name: Run Code Quality Analysis for admin
+    - name: Run Code Quality Analysis for admin
       run: cppcheck admin.cpp
 
-    -name: Run Code Quality Analysis for kiosk
+    - name: Run Code Quality Analysis for kiosk
       run: cppcheck kiosk.cpp
 
-    -name: Run Code Quality Analysis for monitory
+    - name: Run Code Quality Analysis for monitory
       run: cppcheck monitor.cpp
       
-    -name: Run Code Quality Analysis for staff
+    - name: Run Code Quality Analysis for staff
       run: cppcheck staff.cpp
 
   artifact-repository:
